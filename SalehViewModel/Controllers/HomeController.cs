@@ -18,22 +18,26 @@ namespace SalehViewModel.Controllers
             return View(MyList.myList);
         }
         /*we create this method for search post Action to return new info depent about the search and 
-         * it return names or cities */ 
+         * it return names or cities */
         [HttpPost]
-        public ActionResult Index(string searchTxt="",string City="")
+        public ActionResult Index(string searchTxt = "", string City = "",string sortBy = "")
         {
-                if (searchTxt !="")
-                {
+            if (!string.IsNullOrEmpty(searchTxt))
+            {
 
-                    if (City=="city")
-                    {
-                        return View(MyList.myList.Where(x => x.City.ToLower().Contains(searchTxt.ToLower())));
-                    }
-                    else if(City!="city")
-                    {
-                        return View(MyList.myList.Where(x => x.Name.ToLower().Contains(searchTxt.ToLower())));
-                    }
+                if (City == "city")
+                {
+                    return View(MyList.myList.Where(x => x.City.ToLower().Contains(searchTxt.ToLower())).OrderBy(x=>x.Name));
                 }
+                else if (City != "city")
+                {
+                    return View(MyList.myList.Where(x => x.Name.ToLower().Contains(searchTxt.ToLower())).OrderBy(x => x.City));
+                }
+            }
+            else
+            {
+                return View(MyList.myList);//if serach empty then return all list with out filtring  
+            }
             return View("Index");
         }
 
@@ -49,7 +53,7 @@ namespace SalehViewModel.Controllers
         public ActionResult Create(Person newPerson)//we need info to send as save to dtabase
         {//here we do not need new obj because it is static class then direct to memory
             //increase id in list  +1
-            newPerson.Id = MyList.myList.Last().Id+1;
+            newPerson.Id = MyList.myList.Last().Id + 1;
 
             //add to static list
             MyList.myList.Add(newPerson);
@@ -99,7 +103,7 @@ namespace SalehViewModel.Controllers
             return View(detPerson);
         }
         /*we need to change the name of "delete method" to 
-         * avoid OverLoading because it has same "input int id"*/ 
+         * avoid OverLoading because it has same "input int id"*/
         [HttpPost]
         public ActionResult ConfirmDelete(int id)
         {
@@ -111,15 +115,15 @@ namespace SalehViewModel.Controllers
             return RedirectToAction("Index");
         }
         //we create input type of string for input Element as <input type="CheckBox" name="City" value="city"
-        public ActionResult Search(string src,string City)
+        public ActionResult Search(string src, string City)
         {
             Person SrcPerson = new Person();
-            if (City=="city")
+            if (City == "city")
             {
                 //SrcPerson = MyList.myList.Where( x => x.Id == src );
 
             }
-            
+
 
             return View();
         }
