@@ -1,0 +1,47 @@
+﻿@model SalehViewModel.Models.Person
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+    </dl>
+
+    <!--we create this form for method Post to delete and update info in list
+        when we have form it means we will change for delete then go back to display list after delete
+        very important to change the name of this post method and very important to write this new name inside Beginform and change type to post
+        it was before like that @*@using (Html.BeginForm(""))*@ it will be like this daown -->
+    @using (Html.BeginForm("ConfirmDelete", "Home",FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <!--we create here with  confirm delete this code to send id object to post method
+        we see at "View" display object then we can have this id to delete it by add "value="@@Model.Id" to code dawn 39-->
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="submit" value="Confirm" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+</div>

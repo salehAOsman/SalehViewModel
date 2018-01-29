@@ -1,0 +1,118 @@
+﻿@*we selected "Create" as template and Person "class" as model class then we found this down
+we use model here to reach our model then we can have all properties and we use them downlike 
+ Model.Id but we need form to send them to controller by Submit button
+
+@model SalehViewModel.Models.Person
+    {
+        {
+        ViewBag.Title = "Create";
+        }
+<h2>Create</h2>
+
+<!--it use using to drow form by Razor-->
+    using (Html.BeginForm("Action", "controller", FormMethod.Post))
+    {<!---strat begin form-->
+<div>
+    <!---start div for begin form-->
+    <hr /> <!--new line-->
+    <div>
+        <!--for  First property Name-->
+        @Html.LabelFor(model => model.Name)<!---for label-->
+        <div>
+            @Html.EditorFor(model => model.Name)<!--for editor-->
+        </div>
+    </div>
+
+    <div>
+        <!--for  Second property City-->
+        @Html.LabelFor(model => model.City)<!---for label-->
+        <div>
+            @Html.EditorFor(model => model.City)<!--for editor-->
+        </div>
+    </div>
+
+    <div>
+        <!--for button submit-->
+        <div>
+            <input type="submit" value="Create" />
+        </div>
+    </div>
+
+</div> <!--end div for begin form-->
+    }<!---end begin form-->
+
+<!--ActionLink for back or jumping to another method-->
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<!--scripts for design and processing Validation-->
+<div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</div>
+*@
+
+
+@model SalehViewModel.Models.Person
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@*start with "{" for begin form *@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @*start div for begin form *@
+
+        <h4>Person</h4>
+        @*Here we will draw menu for properties *@
+        <hr /> @*Draw new line between rows *@
+
+        @*This used for validation but we need for each element *@
+        @Html.ValidationSummary(true, " ", new { @class = "text-danger" })
+
+        @*First property Name *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 ">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control " } })
+                @*It relates this single validation with validationSummary*@
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*Second property Name  it has first row Div then another col Div*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*Create submit button*@
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+        @*End of main div *@
+
+    </div>@*End div for begin form *@
+}   @*End with "}" for begin form *@
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@*we need those scripts jquery for desgin "jquery-1.10.2.min.js"
+    and validation "jquery.validate.unobtrusive.min.js" in this page *@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
