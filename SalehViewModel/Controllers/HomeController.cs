@@ -15,19 +15,25 @@ namespace SalehViewModel.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+
             return View(MyList.myList);
         }
         /*we create this method for search post Action to return new info depent about the search and 
          * it return names or cities */
         [HttpPost]
-        public ActionResult Index(string searchTxt = "", string City = "",string sortBy = "")
+        public ActionResult Index(string searchTxt = "", string City = "")
         {
+            
+
             if (!string.IsNullOrEmpty(searchTxt))
             {
-
                 if (City == "city")
                 {
-                    return View(MyList.myList.Where(x => x.City.ToLower().Contains(searchTxt.ToLower())).OrderBy(x=>x.Name));
+                    /*we added here ***.orderBy(x=>x.Name) to order with filtering by same times, but what
+                     * if we need just ordering then we need to add new input to adjust this ordering and 
+                     * there are tow ways one order "up" and order "down" */
+                    
+                    return View(MyList.myList.Where(x => x.City.ToLower().Contains(searchTxt.ToLower())).OrderBy(x => x.Name));
                 }
                 else if (City != "city")
                 {
@@ -36,7 +42,7 @@ namespace SalehViewModel.Controllers
             }
             else
             {
-                return View(MyList.myList);//if serach empty then return all list with out filtring  
+                return View(MyList.myList);//if serach is empty then return all list with out filtering  
             }
             return View("Index");
         }

@@ -14,6 +14,12 @@ namespace SalehViewModel.Models
         {
             MyList.myList.Add(new Person { Id = 1, Name = "samer", City = "Lund" });
             MyList.myList.Add(new Person { Id = 2, Name = "sami", City = "Växjö" });
+            MyList.myList.Add(new Person { Id = 3, Name = "maher", City = "Lund" });
+            MyList.myList.Add(new Person { Id = 4, Name = "adel", City = "Jämjö" });
+            MyList.myList.Add(new Person { Id = 5, Name = "abed", City = "Alvseta" });
+            MyList.myList.Add(new Person { Id = 6, Name = "jamal", City = "Karlsham" });
+            MyList.myList.Add(new Person { Id = 7, Name = "daimon", City = "Lund" });
+            MyList.myList.Add(new Person { Id = 8, Name = "somer", City = "Jönshoping" });
         }
     }
 }
